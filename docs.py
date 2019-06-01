@@ -143,3 +143,18 @@ TEMPLATES = [
         'DIRS': ["templates"], # here add templates path, so you can extends layout file direct in any file
     },
 ]
+
+''' got this error - Error loading MySQLdb Module &#39;Did you install mysqlclient or MySQL-python'''
+
+-> pip install pymysql
+
+Then, edit the __init__.py file in your project origin dir(the same as settings.py)
+
+import pymysql
+
+pymysql.install_as_MySQLdb()
+
+
+
+
+
