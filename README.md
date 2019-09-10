@@ -1,7 +1,7 @@
 # django-docs-by-ajay
 Hi there, this is easy Django docs with small code snippets which is very helpful to understand whole Django :) Thanks.
 
-"""project structure"""
+## project structure
 
 <pre>
 
@@ -30,8 +30,8 @@ Hi there, this is easy Django docs with small code snippets which is very helpfu
 
 </pre>
 
-'''how to set mysql database to django -'''
-
+## how to set mysql database to django
+<pre>
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -42,14 +42,14 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+</pre>
+## manage static files
 
-# manage static files
+`{% load static %}` - first add this in top of the file
+`<img src="{% static "my_app/example.jpg" %}" alt="My image">` - then you will get direct access to the static directory
 
-{% load static %} # first add this in top of the file
-<img src="{% static "my_app/example.jpg" %}" alt="My image"> # then you will get direct access to the static directory
-
-# create models and migrations
-
+## create models and migrations
+<pre>
 from django.db import models
 
 class Project(models.Model): # create a function
@@ -57,11 +57,12 @@ class Project(models.Model): # create a function
     description = models.TextField()
     technology = models.CharField(max_length=20)
     image = models.FilePathField(path="/img")
+</pre>
 
-# handel routes in django
+## handel routes in django
 
-'''' main project'''
-
+### main project
+<pre>
 from django.contrib import admin
 from django.urls import path, include
 
@@ -69,9 +70,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("projects/", include("projects.urls")),
 ]
+</pre>
 
-'''html templates'''
-
+### html templates
+<pre>
 from django.urls import path
 from . import views
 
@@ -79,59 +81,66 @@ urlpatterns = [
     path("", views.project_index, name="project_index"),
     path("<int:pk>/", views.project_detail, name="project_detail"),
 ]
+</pre>
 
-'''html templates views'''
+### html templates views
 
-# Create your views here.
-
+- Create your views here.
+<pre>
 from django.shortcuts import render
 from projects.models import Project
+</pre>
 
-#show all portfolio page.
+- show all portfolio page.
+<pre>
 def project_index(request): #define the function with request
     projects = Project.objects.all() # get all data in projects
     context = {
         'projects': projects
     }
     return render(request, 'project_index.html', context) # return context as parameters to project_index.html view
+</pre>
 
-# show detail portfolio
+- show detail portfolio
+<pre>
 def project_detail(request, pk): #define function with request and primary key
     project = Project.objects.get(pk=pk) # here get the project data by primary key
     context = {
         'project': project
     }
     return render(request, 'project_detail.html', context) # return context as project data to the html
+</pre>
 
-"""base layout file to extend in all project"""
+### base layout file to extend in all project
 
+<pre>
 <!doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    {% load static %} #load static here so you can use static
-    <!-- Bootstrap CSS -->
+    # load static here so you can use static assets
+    {% load static %} 
+    # Bootstrap CSS
     <link rel="stylesheet" href="{% static "css/material.css" %}">
 
     <title>Hello, world!</title>
   </head>
   <body>
-    # you page content will go here
+    # you page content will go inside body
     {% block page_content %}{% endblock %}
 
-    <!-- Optional JavaScript -->
+    # Optional JavaScript 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
+</pre>
 
-'''if we create new app, then we have defined it in INSTALLED_APPS'''
-# Application definition
+## if we create new app, then we have defined it in INSTALLED_APPS'''
+### Application definition
 
+<pre>
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -141,25 +150,30 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'projects', #like here I have defined projects
 ]
+</pre>
 
-'''once we create template layout file, then we have to give that path in DIRS - '''
+### once we create template layout file, then we have to give that path in DIRS -
 
+<pre>
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ["templates"], # here add templates path, so you can extends layout file direct in any file
     },
 ]
+</pre>
 
-''' got this error - Error loading MySQLdb Module &#39;Did you install mysqlclient or MySQL-python'''
+### got this error - Error loading MySQLdb Module &#39;Did you install mysqlclient or MySQL-python
 
--> pip install pymysql
+`-> pip install pymysql`
 
 Then, edit the __init__.py file in your project origin dir(the same as settings.py)
 
+<pre>
 import pymysql
 
 pymysql.install_as_MySQLdb()
+</pre>
 
 
 
