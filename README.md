@@ -3,6 +3,8 @@ Hi there, this is easy Django docs with small code snippets which is very helpfu
 
 """project structure"""
 
+<pre>
+
 [projectname]/ # main project '''personal_portfolio'''
 ├── [projectname]/ # subfolder '''personal_portfolio'''
 │   ├── __init__.py
@@ -25,6 +27,8 @@ Hi there, this is easy Django docs with small code snippets which is very helpfu
 ├── [templates]/
 │   ├──base.html # define here your layout, so you can extends it in every file.
 └── manage.py
+
+</pre>
 
 '''how to set mysql database to django -'''
 
